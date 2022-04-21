@@ -1,0 +1,237 @@
+GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from brokengdb1.o...done.
+(gdb) run [K
+Starting program: /home/micah1711/EE355-Lab5/brokengdb1.o 
+Please enter n:
+n factorial is: 0
+[Inferior 1 (process 5419) exited normally]
+(gdb) run
+Starting program: /home/micah1711/EE355-Lab5/brokengdb1.o 
+Please enter n:
+n factorial is: 0
+[Inferior 1 (process 5423) exited normally]
+(gdb) break 18[K[K18
+Breakpoint 1 at 0x555555554aba: file brokengdb1.cpp, line 18.
+(gdb) run[K[K[Kbreak 17
+Note: breakpoint 1 also set at pc 0x555555554aba.
+Breakpoint 2 at 0x555555554aba: file brokengdb1.cpp, line 17.
+(gdb) run[K[K[Kdelete 18
+No breakpoint number 18.
+(gdb) delete 1
+(gdb) delete 2
+(gdb) break 18
+Breakpoint 3 at 0x555555554aba: file brokengdb1.cpp, line 18.
+(gdb) run
+Starting program: /home/micah1711/EE355-Lab5/brokengdb1.o 
+Please enter n:
+
+Breakpoint 3, factorial (n=5) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) n[Kbacktrace
+#0  factorial (n=5) at brokengdb1.cpp:21
+#1  0x0000555555554a56 in main () at brokengdb1.cpp:12
+(gdb) n
+22	        return  factorial(--n)*n;
+(gdb) n
+
+Breakpoint 3, factorial (n=4) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) n
+22	        return  factorial(--n)*n;
+(gdb) n
+
+Breakpoint 3, factorial (n=3) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) n
+22	        return  factorial(--n)*n;
+(gdb) n
+
+Breakpoint 3, factorial (n=2) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) n
+22	        return  factorial(--n)*n;
+(gdb) n
+
+Breakpoint 3, factorial (n=1) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) n
+22	        return  factorial(--n)*n;
+(gdb) n
+
+Breakpoint 3, factorial (n=0) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) n
+23	    else return 1;
+(gdb) n
+26	}
+(gdb) n
+26	}
+(gdb) n
+26	}
+(gdb) n
+26	}
+(gdb) n
+26	}
+(gdb) n
+26	}
+(gdb) n
+main () at brokengdb1.cpp:13
+13	    cout<<"n factorial is: "<<val<<endl;
+(gdb) n
+n factorial is: 0
+15	    return 0;
+(gdb) n
+16	}
+(gdb) n
+__libc_start_main (main=0x5555555549fa <main()>, argc=1, argv=0x7fffffffe058, init=<optimized out>, fini=<optimized out>, 
+    rtld_fini=<optimized out>, stack_end=0x7fffffffe048) at ../csu/libc-start.c:344
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/micah1711/EE355-Lab5/brokengdb1.o 
+Please enter n:
+
+Breakpoint 3, factorial (n=5) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) delete 3
+(gdb) run [K
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/micah1711/EE355-Lab5/brokengdb1.o 
+Please enter n:
+n factorial is: 0
+[Inferior 1 (process 5441) exited normally]
+(gdb) break 3
+Breakpoint 4 at 0x555555554a02: file brokengdb1.cpp, line 3.
+(gdb) delete 4
+(gdb) break 18
+Breakpoint 5 at 0x555555554aba: file brokengdb1.cpp, line 18.
+(gdb) run[K[K[Kr[Krun[K[K[Krun[K[K[Krun[K[K[Krun[K[K[Krun[K[K[Krun[K[K[Krun
+Starting program: /home/micah1711/EE355-Lab5/brokengdb1.o 
+Please enter n:
+
+Breakpoint 5, factorial (n=5) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) print [K[K[K[K[K[Kprint[K[K[K[K[Kc
+Continuing.
+
+Breakpoint 5, factorial (n=4) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) print n
+$1 = 4
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=3) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=2) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=1) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=0) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+n factorial is: 0
+[Inferior 1 (process 5459) exited normally]
+(gdb) backtrace
+(gdb) backtrace[C[C[C[C[C[Cc[K[Krun
+Starting program: /home/micah1711/EE355-Lab5/brokengdb1.o 
+Please enter n:
+
+Breakpoint 5, factorial (n=5) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=4) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=3) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=2) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=1) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) c
+Continuing.
+
+Breakpoint 5, factorial (n=0) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) n
+23	    else return 1;
+(gdb) print n
+$2 = 0
+(gdb) n
+26	}
+(gdb) print n
+$3 = 0
+(gdb) print n
+$4 = 0
+(gdb) n
+26	}
+(gdb) print n
+$5 = 0
+(gdb) n[Kn
+26	}
+(gdb) print n
+$6 = 1
+(gdb) n
+26	}
+(gdb) print n
+$7 = 2
+(gdb) n
+26	}
+(gdb) print n
+$8 = 3
+(gdb) n
+26	}
+(gdb) print n
+$9 = 4
+(gdb) n
+main () at brokengdb1.cpp:13
+13	    cout<<"n factorial is: "<<val<<endl;
+(gdb) n
+n factorial is: 0
+15	    return 0;
+(gdb) n
+16	}
+(gdb) n
+__libc_start_main (main=0x5555555549fa <main()>, argc=1, argv=0x7fffffffe058, init=<optimized out>, fini=<optimized out>, 
+    rtld_fini=<optimized out>, stack_end=0x7fffffffe048) at ../csu/libc-start.c:344
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 5462] will be killed.
+
+Quit anyway? (y or n) y

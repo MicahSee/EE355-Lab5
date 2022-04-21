@@ -1,0 +1,319 @@
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ ./test.o
+=================================================================
+==2316==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffe08c36798 at pc 0x55b5976f2bc8 bp 0x7ffe08c366e0 sp 0x7ffe08c366d0
+READ of size 4 at 0x7ffe08c36798 thread T0
+    #0 0x55b5976f2bc7 in partition(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:5
+    #1 0x55b5976f2f17 in quickSort(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:30
+    #2 0x55b5976f31f3 in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:50
+    #3 0x7f5929953c86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
+    #4 0x55b5976f2a89 in _start (/home/micah1711/EE355-Lab5/test.o+0xa89)
+
+Address 0x7ffe08c36798 is located in stack of thread T0 at offset 56 in frame
+    #0 0x55b5976f2fed in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:47
+
+  This frame has 1 object(s):
+    [32, 56) 'arr' <== Memory access at offset 56 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism or swapcontext
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:5 in partition(int*, int, int)
+Shadow bytes around the buggy address:
+  0x10004117eca0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ecb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ecc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ecd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ece0: 00 00 00 00 00 00 00 00 00 00 00 00 f1 f1 f1 f1
+=>0x10004117ecf0: 00 00 00[f2]00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ed00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ed10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ed20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ed30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10004117ed40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2316==ABORTING
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ vim BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ ./test.o
+=================================================================
+==2342==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fff91e073d8 at pc 0x561940c0ee54 bp 0x7fff91e07320 sp 0x7fff91e07310
+READ of size 4 at 0x7fff91e073d8 thread T0
+    #0 0x561940c0ee53 in partition(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:21
+    #1 0x561940c0ef17 in quickSort(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:30
+    #2 0x561940c0f1f3 in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:50
+    #3 0x7f469bfbcc86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
+    #4 0x561940c0ea89 in _start (/home/micah1711/EE355-Lab5/test.o+0xa89)
+
+Address 0x7fff91e073d8 is located in stack of thread T0 at offset 56 in frame
+    #0 0x561940c0efed in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:47
+
+  This frame has 1 object(s):
+    [32, 56) 'arr' <== Memory access at offset 56 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism or swapcontext
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:21 in partition(int*, int, int)
+Shadow bytes around the buggy address:
+  0x1000723b8e20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8e30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8e40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8e50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8e60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x1000723b8e70: 00 00 00 00 f1 f1 f1 f1 00 00 00[f2]00 00 00 00
+  0x1000723b8e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8e90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8ea0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8eb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000723b8ec0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2342==ABORTING
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ vim BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ ./test.o
+=================================================================
+==2353==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fff19824ec8 at pc 0x55b4e20f5e54 bp 0x7fff19824e10 sp 0x7fff19824e00
+READ of size 4 at 0x7fff19824ec8 thread T0
+    #0 0x55b4e20f5e53 in partition(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:21
+    #1 0x55b4e20f5f17 in quickSort(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:30
+    #2 0x55b4e20f61f3 in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:50
+    #3 0x7f3163901c86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
+    #4 0x55b4e20f5a89 in _start (/home/micah1711/EE355-Lab5/test.o+0xa89)
+
+Address 0x7fff19824ec8 is located in stack of thread T0 at offset 56 in frame
+    #0 0x55b4e20f5fed in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:47
+
+  This frame has 1 object(s):
+    [32, 56) 'arr' <== Memory access at offset 56 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism or swapcontext
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:21 in partition(int*, int, int)
+Shadow bytes around the buggy address:
+  0x1000632fc980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fc990: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fc9a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fc9b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fc9c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x1000632fc9d0: 00 00 f1 f1 f1 f1 00 00 00[f2]00 00 00 00 00 00
+  0x1000632fc9e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fc9f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fca00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fca10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000632fca20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2353==ABORTING
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ vim BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ ./test.o
+=================================================================
+==2360==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffe06fa1fc8 at pc 0x5625af7c4edd bp 0x7ffe06fa1f10 sp 0x7ffe06fa1f00
+WRITE of size 4 at 0x7ffe06fa1fc8 thread T0
+    #0 0x5625af7c4edc in partition(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:22
+    #1 0x5625af7c4f17 in quickSort(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:30
+    #2 0x5625af7c51f3 in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:50
+    #3 0x7f314b9c4c86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
+    #4 0x5625af7c4a89 in _start (/home/micah1711/EE355-Lab5/test.o+0xa89)
+
+Address 0x7ffe06fa1fc8 is located in stack of thread T0 at offset 56 in frame
+    #0 0x5625af7c4fed in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:47
+
+  This frame has 1 object(s):
+    [32, 56) 'arr' <== Memory access at offset 56 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism or swapcontext
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:22 in partition(int*, int, int)
+Shadow bytes around the buggy address:
+  0x100040dec3a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec3b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec3c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec3d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec3e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x100040dec3f0: 00 00 f1 f1 f1 f1 00 00 00[f2]00 00 00 00 00 00
+  0x100040dec400: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec410: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec420: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec430: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100040dec440: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2360==ABORTING
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ vim BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ vim BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ ./test.o
+=================================================================
+==2368==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffd3be722d8 at pc 0x55aabf5d4de8 bp 0x7ffd3be721c0 sp 0x7ffd3be721b0
+READ of size 4 at 0x7ffd3be722d8 thread T0
+    #0 0x55aabf5d4de7 in partition(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:20
+    #1 0x55aabf5d4f17 in quickSort(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:30
+    #2 0x55aabf5d4f48 in quickSort(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:32
+    #3 0x55aabf5d4f48 in quickSort(int*, int, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:32
+    #4 0x55aabf5d51f3 in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:50
+    #5 0x7f5d19a80c86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
+    #6 0x55aabf5d4a89 in _start (/home/micah1711/EE355-Lab5/test.o+0xa89)
+
+Address 0x7ffd3be722d8 is located in stack of thread T0 at offset 56 in frame
+    #0 0x55aabf5d4fed in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:47
+
+  This frame has 1 object(s):
+    [32, 56) 'arr' <== Memory access at offset 56 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism or swapcontext
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:20 in partition(int*, int, int)
+Shadow bytes around the buggy address:
+  0x1000277c6400: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c6410: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c6420: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c6430: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c6440: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x1000277c6450: 00 00 00 00 f1 f1 f1 f1 00 00 00[f2]00 00 00 00
+  0x1000277c6460: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c6470: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c6480: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c6490: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000277c64a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2368==ABORTING
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ vim BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ ./test.o
+=================================================================
+==2375==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffc8713e3b8 at pc 0x55ca95032fb6 bp 0x7ffc8713e330 sp 0x7ffc8713e320
+READ of size 4 at 0x7ffc8713e3b8 thread T0
+    #0 0x55ca95032fb5 in printArray(int*, int) /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:41
+    #1 0x55ca95033218 in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:52
+    #2 0x7f4412ea9c86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
+    #3 0x55ca95032a89 in _start (/home/micah1711/EE355-Lab5/test.o+0xa89)
+
+Address 0x7ffc8713e3b8 is located in stack of thread T0 at offset 56 in frame
+    #0 0x55ca95032fed in main /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:47
+
+  This frame has 1 object(s):
+    [32, 56) 'arr' <== Memory access at offset 56 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism or swapcontext
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/micah1711/EE355-Lab5/BrokenASan_5867469252.cpp:41 in printArray(int*, int)
+Shadow bytes around the buggy address:
+  0x100010e1fc20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fc30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fc40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fc50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fc60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x100010e1fc70: f1 f1 f1 f1 00 00 00[f2]00 00 00 00 00 00 00 00
+  0x100010e1fc80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fc90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fca0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fcb0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100010e1fcc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2375==ABORTING
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ vim BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ g++ -o test.o -fsanitize=address -ggdb BrokenASan_5867469252.cpp
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ ./test.o
+Sorted array: n1 5 7 8 9 10 nmicah1711@micah1711-VirtualBox:~/EE355-Lab5$ ^C
+micah1711@micah1711-VirtualBox:~/EE355-Lab5$ 

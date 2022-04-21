@@ -19,7 +19,7 @@ long factorial(int n)
 {
     
     if(n)
-        return  factorial(--n)*n;
+        return  factorial(n-1)*n;
     else return 1;
     
     

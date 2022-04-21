@@ -2,11 +2,11 @@
   
 int partition (int arr[], int low, int high) 
 { 
-    int pivot = arr[high];    // pivot 
+    int pivot = arr[high-1];    // pivot 
     int i = (low - 1);  // Index of smaller element 
     int temp = 0;
   
-    for (int j = low; j <= high-1; j++) 
+    for (int j = low; j <= high-2; j++) 
     { 
         if (arr[j] <= pivot) 
         { 
@@ -18,8 +18,8 @@ int partition (int arr[], int low, int high)
     } 
     //swap(&arr[i + 1], &arr[high]);
     temp = arr[i+1];
-    arr[i+1]  = arr[high];
-    arr[high] = temp;  
+    arr[i+1]  = arr[high-1];
+    arr[high-1] = temp;  
     return (i + 1); 
 } 
 
@@ -37,7 +37,7 @@ void quickSort(int arr[], int low, int high)
 void printArray(int arr[], int size) 
 { 
     int i; 
-    for (i=0; i <= size; i++) 
+    for (i=0; i < size; i++) 
         printf("%d ", arr[i]); 
     printf("n"); 
 } 
